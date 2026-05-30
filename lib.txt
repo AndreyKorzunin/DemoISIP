@@ -1,0 +1,21 @@
+--  Создание базы данных
+CREATE DATABASE IF NOT EXISTS dairy_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE dairy_db;
+
+CREATE TABLE IF NOT EXISTS users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    login VARCHAR(50) UNIQUE NOT NULL,
+    password_hash VARCHAR(64) NOT NULL,      -- SHA-256 хеш (64 символа)
+    role VARCHAR(50) NOT NULL DEFAULT 'Пользователь',
+    is_blocked TINYINT(1) DEFAULT 0,
+    failed_attempts INT DEFAULT 0
+);
+
+--  Пароль  '123456'
+
+INSERT INTO users (login, password_hash, role) VALUES
+('admin', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'Администратор'),
+('user1', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'Пользователь');
+
+
+pip install mysql-connector-python==8.0.33
